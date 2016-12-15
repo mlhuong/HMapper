@@ -1,0 +1,4 @@
+*.nupkg
+*.user
+bin/
+obj/

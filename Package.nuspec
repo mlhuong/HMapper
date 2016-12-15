@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>HMapper</id>
+    <version>$version$</version>
+    <authors>Minh-Luong HUONG</authors>
+    <owners>Minh-Luong HUONG</owners>
+    <title>HMapper</title>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Object to object fast mapper.</description>
+    <summary>H-Mapper is a tool that helps developers maitaining their n-tier application by providing a simple and intuitive way to map objects from a layer to another (usually from business/domain layer to presentation layer)</summary>
+    <releaseNotes>
+- Fixed: regression with fill method that could not match when target T type is mapped, but a derived type T' is given.
+- Added: inialializer.EnableItemsCacheByDefault(). This option sets the items cache to enables by default for all mappings. Individual mappings can override with DisableItemsCache().
+    </releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>Mapper DTO</tags>
+    <projectUrl>https://minhlhuong.wordpress.com/hmapper/</projectUrl>
+  </metadata>
+</package>
