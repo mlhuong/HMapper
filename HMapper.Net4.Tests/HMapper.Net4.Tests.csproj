@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{ED347D4D-0D00-4468-9598-A2338517A9D9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HMapper.Tests</RootNamespace>
+    <AssemblyName>HMapper.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.abstractions.2.0.1\lib\net35\xunit.abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="xunit.assert, Version=2.2.0.3444, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.assert.2.2.0-beta4-build3444\lib\netstandard1.0\xunit.assert.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="xunit.core, Version=2.2.0.3444, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.extensibility.core.2.2.0-beta4-build3444\lib\net45\xunit.core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="xunit.execution.desktop, Version=2.2.0.3444, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.extensibility.execution.2.2.0-beta4-build3444\lib\net45\xunit.execution.desktop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\HMapper.Core.Tests\Business\AutoReferencedClass.cs">
+      <Link>Business\AutoReferencedClass.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\ClassForInclusions.cs">
+      <Link>Business\ClassForInclusions.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\ClassWithBeforeAndAfterMap.cs">
+      <Link>Business\ClassWithBeforeAndAfterMap.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\ClassWithBeforeAndAfterMapSub.cs">
+      <Link>Business\ClassWithBeforeAndAfterMapSub.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\ClassWithSetOfUnmappedClass.cs">
+      <Link>Business\ClassWithSetOfUnmappedClass.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\ClassWithStructAndEnum.cs">
+      <Link>Business\ClassWithStructAndEnum.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\DictionarySet.cs">
+      <Link>Business\DictionarySet.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\DictionarySetCircular.cs">
+      <Link>Business\DictionarySetCircular.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\FuncMappingPolymorph.cs">
+      <Link>Business\FuncMappingPolymorph.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\FuncMappingPolymorphSub.cs">
+      <Link>Business\FuncMappingPolymorphSub.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\IInterfaceForFuncMappingPolymorph.cs">
+      <Link>Business\IInterfaceForFuncMappingPolymorph.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\IPolymorphic.cs">
+      <Link>Business\IPolymorphic.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\ManuallyMappedClass.cs">
+      <Link>Business\ManuallyMappedClass.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\MappedObjectGeneric.cs">
+      <Link>Business\MappedObjectGeneric.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\MultipleGenerics.cs">
+      <Link>Business\MultipleGenerics.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\MultipleSets.cs">
+      <Link>Business\MultipleSets.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\PolymorphicBaseClass.cs">
+      <Link>Business\PolymorphicBaseClass.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\PolymorphicSubClass.cs">
+      <Link>Business\PolymorphicSubClass.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\PolymorphicSubSubClass.cs">
+      <Link>Business\PolymorphicSubSubClass.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\SetOfGenericPolymorph.cs">
+      <Link>Business\SetOfGenericPolymorph.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\SetOfPolymorphic.cs">
+      <Link>Business\SetOfPolymorphic.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\SimpleClass.cs">
+      <Link>Business\SimpleClass.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\SimpleGeneric.cs">
+      <Link>Business\SimpleGeneric.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\SimpleGeneric2.cs">
+      <Link>Business\SimpleGeneric2.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\SimpleSet.cs">
+      <Link>Business\SimpleSet.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\VerySimpleClass.cs">
+      <Link>Business\VerySimpleClass.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\AutoReferencedClass.cs">
+      <Link>DTO\AutoReferencedClass.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\ClassForInclusions.cs">
+      <Link>DTO\ClassForInclusions.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\ClassWithBeforeAndAfterMap.cs">
+      <Link>DTO\ClassWithBeforeAndAfterMap.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\ClassWithBeforeAndAfterMapSub.cs">
+      <Link>DTO\ClassWithBeforeAndAfterMapSub.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\ClassWithComplexFuncMappings.cs">
+      <Link>DTO\ClassWithComplexFuncMappings.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\ClassWithSetOfUnmappedClass.cs">
+      <Link>DTO\ClassWithSetOfUnmappedClass.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\ClassWithStructAndEnum.cs">
+      <Link>DTO\ClassWithStructAndEnum.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\ContainerOfManuallyMappedClass.cs">
+      <Link>DTO\ContainerOfManuallyMappedClass.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\DictionarySet.cs">
+      <Link>DTO\DictionarySet.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\DictionarySetCircular.cs">
+      <Link>DTO\DictionarySetCircular.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\FuncMappingPolymorph.cs">
+      <Link>DTO\FuncMappingPolymorph.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\FuncMappingPolymorphSub.cs">
+      <Link>DTO\FuncMappingPolymorphSub.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\IPolymorphic.cs">
+      <Link>DTO\IPolymorphic.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\MappedObjectGeneric.cs">
+      <Link>DTO\MappedObjectGeneric.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\MultipleGenerics.cs">
+      <Link>DTO\MultipleGenerics.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\MultipleSets.cs">
+      <Link>DTO\MultipleSets.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\PolymorphicBaseClass.cs">
+      <Link>DTO\PolymorphicBaseClass.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\PolymorphicSubClass.cs">
+      <Link>DTO\PolymorphicSubClass.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\SetOfGenericPolymorph.cs">
+      <Link>DTO\SetOfGenericPolymorph.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\SetOfPolymorphic.cs">
+      <Link>DTO\SetOfPolymorphic.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\SimpleClass.cs">
+      <Link>DTO\SimpleClass.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\SimpleClass2.cs">
+      <Link>DTO\SimpleClass2.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\SimpleGeneric.cs">
+      <Link>DTO\SimpleGeneric.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\SimpleGeneric2.cs">
+      <Link>DTO\SimpleGeneric2.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\SimpleSet.cs">
+      <Link>DTO\SimpleSet.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\SubSimpleClass.cs">
+      <Link>DTO\SubSimpleClass.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\VerySimpleClass.cs">
+      <Link>DTO\VerySimpleClass.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Extensions.cs">
+      <Link>Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\InitMappings.cs">
+      <Link>InitMappings.cs</Link>
+    </Compile>
+    <Compile Include="Tests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HMapper.Net4\HMapper.Net4.csproj">
+      <Project>{34024212-fbd1-4662-b7ab-c915960e4c39}</Project>
+      <Name>HMapper.Net4</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

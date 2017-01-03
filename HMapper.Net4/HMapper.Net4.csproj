@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{34024212-FBD1-4662-B7AB-C915960E4C39}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HMapper</RootNamespace>
+    <AssemblyName>HMapper</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\HMapper.Core\Collections\ArrayBuilder.cs">
+      <Link>Collections\ArrayBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\Collections\BaseCollectionBuilder.cs">
+      <Link>Collections\BaseCollectionBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\Collections\CollectionBuilder.cs">
+      <Link>Collections\CollectionBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\Collections\DictionaryBuilder.cs">
+      <Link>Collections\DictionaryBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\Collections\HashSetBuilder.cs">
+      <Link>Collections\HashSetBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\Collections\ListBuilder.cs">
+      <Link>Collections\ListBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\Exceptions\GenericException.cs">
+      <Link>Exceptions\GenericException.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\Exceptions\NotMappedException.cs">
+      <Link>Exceptions\NotMappedException.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\Extensions\ExpressionExtension.cs">
+      <Link>Extensions\ExpressionExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\FunctionMapping.cs">
+      <Link>FunctionMapping.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\GenericAssociation.cs">
+      <Link>GenericAssociation.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\IGeneric.cs">
+      <Link>IGeneric.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\IgnoreMapping.cs">
+      <Link>IgnoreMapping.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\IMapperAPI.cs">
+      <Link>IMapperAPI.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\IMapperAPIInitializer.cs">
+      <Link>IMapperAPIInitializer.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\IMapperAPIMember.cs">
+      <Link>IMapperAPIMember.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\IMapping.cs">
+      <Link>IMapping.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\IncludeChain.cs">
+      <Link>IncludeChain.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\MapBuilder.cs">
+      <Link>MapBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\MapBuilder_TS.cs">
+      <Link>MapBuilder_TS.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\MapConfig.cs">
+      <Link>MapConfig.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\MapInfo.cs">
+      <Link>MapInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\MapMode.cs">
+      <Link>MapMode.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\Mapper.cs">
+      <Link>Mapper.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\MapperAPI.cs">
+      <Link>MapperAPI.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\MapperAPIInitializer.cs">
+      <Link>MapperAPIInitializer.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\MapperAPIMember.cs">
+      <Link>MapperAPIMember.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\MapperAPIMember_TS.cs">
+      <Link>MapperAPIMember_TS.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\MapperAPI_TS.cs">
+      <Link>MapperAPI_TS.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\MapperCache.cs">
+      <Link>MapperCache.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\MappingVisitor.cs">
+      <Link>MappingVisitor.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\MemberMapping.cs">
+      <Link>MemberMapping.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\Metadata\Cloner.cs">
+      <Link>Metadata\Cloner.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\Metadata\MemberInfoExtension.cs">
+      <Link>Metadata\MemberInfoExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\Metadata\Meta.cs">
+      <Link>Metadata\Meta.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\Metadata\Meta_T.cs">
+      <Link>Metadata\Meta_T.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\Metadata\TypeExtension.cs">
+      <Link>Metadata\TypeExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\PolymorphismManager.cs">
+      <Link>PolymorphismManager.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\PolymorphismManager_TS.cs">
+      <Link>PolymorphismManager_TS.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\ReplacementType.cs">
+      <Link>ReplacementType.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\RetrievalMode.cs">
+      <Link>RetrievalMode.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\TypeExtension.cs">
+      <Link>TypeExtension.cs</Link>
+    </Compile>
+    <Compile Include="Extensions\Net4Extension.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
