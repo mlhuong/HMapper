@@ -103,6 +103,18 @@ namespace HMapper.Tests
         }
 
         [TestMethod]
+        public void TestNullableTypes()
+        {
+            var source = ClassWithNullableTypes.Create();
+            Run(source, x => new DTO.ClassWithNullableTypes(x));
+
+            var DTO = new DTO.ClassWithNullableTypes() { Int1 = 5 };
+            var manual = new DTO.ClassWithNullableTypes(source);
+            Mapper.Fill(source, DTO);
+            Assert.AreEqual(DTO, manual);
+        }
+
+        [TestMethod]
         public void TestSimpleGenericOfInt()
         {
             Run(SimpleGeneric<int>.Create(1, 100), x => new DTO.SimpleGeneric<int>(x));
@@ -154,7 +166,7 @@ namespace HMapper.Tests
         public void TestGenericOfPolymorphicClass()
         {
             Run(MappedObjectGeneric<PolymorphicBaseClass>.Create(1, PolymorphicBaseClass.Create(2)), x => new DTO.MappedObjectGeneric<DTO.PolymorphicBaseClass>(x));
-            Run(MappedObjectGeneric<PolymorphicBaseClass>.Create(1, PolymorphicSubSubClass.Create(2)), x => new DTO.MappedObjectGeneric<DTO.PolymorphicBaseClass>(x));
+            //Run(MappedObjectGeneric<PolymorphicBaseClass>.Create(1, PolymorphicSubSubClass.Create(2)), x => new DTO.MappedObjectGeneric<DTO.PolymorphicBaseClass>(x));
         }
 
         [TestMethod]
@@ -189,7 +201,10 @@ namespace HMapper.Tests
             var targetDTO = new DTO.SubSimpleClass() { AdditionalInfo = "addInfo" };
             Mapper.Fill<SimpleClass, DTO.SimpleClass>(source, targetDTO);
             var manual = new DTO.SubSimpleClass(source, "addInfo");
+            Assert.AreEqual(targetDTO, manual);
 
+            targetDTO = new DTO.SubSimpleClass() { AdditionalInfo = "addInfo" };
+            Mapper.Fill<object, object>(source, targetDTO);
             Assert.AreEqual(targetDTO, manual);
 
             targetDTO = new DTO.SubSimpleClass() { AdditionalInfo = "addInfo" };
@@ -199,7 +214,6 @@ namespace HMapper.Tests
 
             targetDTO = new DTO.SubSimpleClass() { AdditionalInfo = "addInfo" };
             Mapper.Fill<SimpleClass, DTO.SimpleClass>(source, targetDTO, x => x.VerySimpleClass);
-            manual.IntArray = null;
             Assert.AreEqual(targetDTO, manual);
         }
 
@@ -250,7 +264,8 @@ namespace HMapper.Tests
             var manual = new DTO.ClassWithComplexFuncMappings()
             {
                 ADate = default(DateTime),
-                VerySimpleClasses = arr.Select(item => new DTO.VerySimpleClass(new VerySimpleClass() { MyInt = item, MyString = item.ToString() })).ToArray()
+                VerySimpleClasses = arr.Select(item => new DTO.VerySimpleClass(new VerySimpleClass() { MyInt = item, MyString = item.ToString() })).ToArray(),
+                VerySimpleClass = new DTO.VerySimpleClass() { MyInt = 77, MyString = "test" }
             };
             Assert.AreEqual(MyDTO, manual);
         }

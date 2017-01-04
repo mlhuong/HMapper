@@ -1,4 +1,13 @@
-﻿Verison 1.1.0
+﻿Verison 1.1.2
+==================
+- Fixed : regression bug in some polymorphic cases.
+
+Verison 1.1.1
+==================
+- Added: source Nullable<T> is now mapped to target T. NULL values of Nullable<T> will return default T in this case.
+- Added: it is now possible to override default mapping of simple types with initializer.ManualMap().
+
+Verison 1.1.0
 ==================
 - Added: Support of .Net CORE
 

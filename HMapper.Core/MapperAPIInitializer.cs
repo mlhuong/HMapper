@@ -92,7 +92,7 @@ namespace HMapper
         {
             Tuple<Type, Type> tuple = new Tuple<Type, Type>(typeof(TSource), typeof(TTarget));
             if (MapInfo._CacheGenericMaps.ContainsKey(tuple))
-                throw new Exception($"The target type {typeof(TTarget).FullName} is already mapped to the type {typeof(TSource).FullName}.");
+                return;
 
             CheckGenerics<TSource, TTarget>();
             MapInfo._CacheGenericMaps.GetOrAdd(tuple, t => new MapInfo(tuple, false) { ExpressionBuilder = expressionDlg });

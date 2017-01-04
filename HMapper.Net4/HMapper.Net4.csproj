@@ -100,14 +100,14 @@
     <Compile Include="..\HMapper.Core\MapBuilder.cs">
       <Link>MapBuilder.cs</Link>
     </Compile>
-    <Compile Include="..\HMapper.Core\MapBuilder_TS.cs">
-      <Link>MapBuilder_TS.cs</Link>
-    </Compile>
     <Compile Include="..\HMapper.Core\MapConfig.cs">
       <Link>MapConfig.cs</Link>
     </Compile>
     <Compile Include="..\HMapper.Core\MapInfo.cs">
       <Link>MapInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core\MapInfoForSimpleTypes.cs">
+      <Link>MapInfoForSimpleTypes.cs</Link>
     </Compile>
     <Compile Include="..\HMapper.Core\MapMode.cs">
       <Link>MapMode.cs</Link>

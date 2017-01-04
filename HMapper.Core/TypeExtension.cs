@@ -55,7 +55,7 @@ namespace HMapper
         /// <returns></returns>
         public static bool IsSimpleType(this Type type)
         {
-            return (type.GetTypeInfo().IsPrimitive || type == typeof(string) || type == typeof(DateTime) 
+            return (type.GetTypeInfo().IsValueType || type == typeof(string)
                 || (type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>)));
         }
     }

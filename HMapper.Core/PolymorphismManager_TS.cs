@@ -114,8 +114,8 @@ namespace HMapper
             {
                 Type sourceType = typeof(TSource);
                 Type targetType = typeof(TTarget);
-                if (key.Item1.IsSimpleType())
-                    return (source, include) => (TTarget)(object)source;
+                //if (key.Item1.IsSimpleType())
+                //    return (source, include) => (TTarget)(object)source;
 
                 ParameterExpression paramSource = Expression.Parameter(sourceType);
                 ParameterExpression paramInclude = Expression.Parameter(typeof(IncludeChain));

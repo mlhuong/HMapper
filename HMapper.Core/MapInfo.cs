@@ -20,6 +20,7 @@ namespace HMapper
         /// Dictionary of tuples of Target/Source. Each value represents the mapping info for a target/source pair.
         /// </summary>        
         static internal ConcurrentDictionary<Tuple<Type,Type>, MapInfo> _CacheGenericMaps;
+        static internal ConcurrentDictionary<Tuple<Type, Type, bool>, Tuple<MapInfo, Dictionary<Type, GenericAssociation>>> _CacheConcreteMaps;
         static internal List<Type> _PolymorphTypes;
 
         #endregion
@@ -76,6 +77,7 @@ namespace HMapper
         static MapInfo()
         {
             _CacheGenericMaps = new ConcurrentDictionary<Tuple<Type, Type>, MapInfo>();
+            _CacheConcreteMaps = new ConcurrentDictionary<Tuple<Type, Type, bool>, Tuple<MapInfo, Dictionary<Type, GenericAssociation>>>();
             _PolymorphTypes = new List<Type>() { typeof(object) };
         }
 
@@ -90,42 +92,34 @@ namespace HMapper
         /// <param name="typeToMatch"></param>
         /// <param name="genericTypeAssociation"></param>
         /// <returns></returns>
-        internal static bool IsCompatibleSourceType(TypeInfo mappedType, TypeInfo typeToMatch, out Dictionary<Type, Type> genericTypeAssociation)
+        internal static bool IsCompatibleSourceType(Type mappedType, Type typeToMatch, out Dictionary<Type, Type> genericTypeAssociation)
         {
-            genericTypeAssociation = new Dictionary<Type,Type>();
-            if (mappedType == typeToMatch)
-                return true;
+            genericTypeAssociation = new Dictionary<Type, Type>();
+            var genericArgsMappedType = mappedType.IsArray ? new[] { mappedType.GetElementType() }
+                : mappedType.GetTypeInfo().IsGenericType ? mappedType.GetGenericArguments() : new Type[0];
 
-            if (mappedType.IsArray && typeToMatch.IsArray)
+            var genericArgsTypeToMatch = typeToMatch.IsArray ? new[] { typeToMatch.GetElementType() }
+                : typeToMatch.GetTypeInfo().IsGenericType ? typeToMatch.GetGenericArguments() : new Type[0];
+
+            if (genericArgsMappedType.Length > 0)
             {
-                if (typeof(IGeneric).IsAssignableFrom(mappedType.GetElementType()))
+                if (mappedType.IsArray)
                 {
-                    genericTypeAssociation[mappedType.GetElementType()] = typeToMatch.GetElementType();
-                    return true;
+                    if (genericArgsTypeToMatch.Length == 0) return false;
+                    genericTypeAssociation[genericArgsMappedType[0]] = genericArgsTypeToMatch[0];
+                    return genericArgsMappedType[0].MakeArrayType().IsAssignableFrom(typeToMatch);
                 }
-                return IsCompatibleSourceType(mappedType.GetElementType().GetTypeInfo(), typeToMatch.GetElementType().GetTypeInfo(), out genericTypeAssociation);
+                if (genericArgsTypeToMatch.Length < genericArgsMappedType.Length) return false;
+                int index = 0;
+                foreach (var arg in genericArgsMappedType)
+                {
+                    genericTypeAssociation[arg] = genericArgsTypeToMatch[index++];
+                }
+                var newMappedType = mappedType.GetGenericTypeDefinition().MakeGenericType(genericArgsTypeToMatch.Take(genericArgsMappedType.Length).ToArray());
+                return newMappedType.IsAssignableFrom(typeToMatch);
             }
 
-            if ((!mappedType.IsGenericType) || (!typeToMatch.IsGenericType))
-                return false;
-
-            if (mappedType.GetGenericTypeDefinition() != typeToMatch.GetGenericTypeDefinition())
-            {
-                if (typeToMatch.BaseType == null)
-                    return false;
-                return IsCompatibleSourceType(mappedType, typeToMatch.BaseType.GetTypeInfo(), out genericTypeAssociation);
-            }
-
-            Type[] sourceArgs = mappedType.GetGenericArguments();
-            Type[] targetArgs = typeToMatch.GetGenericArguments();
-            for (int i = 0; i < sourceArgs.Length; i++)
-            {
-                if (typeof(IGeneric).IsAssignableFrom(sourceArgs[i]))
-                    genericTypeAssociation[sourceArgs[i]] = targetArgs[i];
-                else if (sourceArgs[i] != targetArgs[i])
-                    return false;
-            }
-            return true;
+            return mappedType.IsAssignableFrom(typeToMatch);
         }
 
         static bool IsCompatibleTargetType(bool fillMode, TypeInfo mappedType, TypeInfo typeToMatch, Dictionary<Type, Type> sourceAssociations, out Dictionary<Type, GenericAssociation> resultAssociations)
@@ -216,49 +210,35 @@ namespace HMapper
         /// <returns></returns>
         internal static MapInfo Get(Type sourceType, Type targetType, bool fillMode, out Dictionary<Type, GenericAssociation> genericTypeAssociation)
         {
-            var tuple = _Get(sourceType, targetType, fillMode);
-            genericTypeAssociation = tuple?.Item2;
-            return tuple?.Item1;
+            var result = _CacheConcreteMaps.GetOrAdd(Tuple.Create(sourceType, targetType, fillMode), t => _Get(t.Item1, t.Item2, fillMode));
+            genericTypeAssociation = result?.Item2;
+            return result?.Item1;
         }
 
         static Tuple<MapInfo, Dictionary<Type, GenericAssociation>> _Get(Type sourceType, Type targetType, bool fillMode)
         {
-            Type tempSource = sourceType;
             var sourceTypeAssociation = new Dictionary<Type, Type>();
             var results = new List<Tuple<MapInfo, Dictionary<Type, GenericAssociation>>>();
-            while (tempSource != null)
-            {
+
                 foreach (var kp in _CacheGenericMaps)
                 {
                     if (results.Any(x => x.Item1 == kp.Value))
                         continue;
-                    bool matched = false;
-                    if (!IsCompatibleSourceType(kp.Key.Item1.GetTypeInfo(), tempSource.GetTypeInfo(), out sourceTypeAssociation))
-                    {
-                        foreach (Type interf in tempSource.GetInterfaces())
-                        {
-                            if (IsCompatibleSourceType(kp.Key.Item1.GetTypeInfo(), interf.GetTypeInfo(), out sourceTypeAssociation))
-                            {
-                                matched = true;
-                                break;
-                            }
-                        }
-                    }
-                    else
-                        matched = true;
 
-                    if (matched)
-                    {
+                    if (IsCompatibleSourceType(kp.Key.Item1, sourceType, out sourceTypeAssociation))
+                    { 
                         Dictionary<Type, GenericAssociation> resultDic;
                         if (IsCompatibleTargetType(fillMode, kp.Key.Item2.GetTypeInfo(), targetType.GetTypeInfo(), sourceTypeAssociation, out resultDic))
                             results.Add(Tuple.Create(kp.Value, resultDic));
                     }
                 }
 
-                tempSource = tempSource.GetTypeInfo().BaseType;
-            }
             if (!results.Any())
+            {
+                if (sourceType.IsSimpleType())
+                    return Tuple.Create((MapInfo)MapInfoForSimpleTypes.Get(Tuple.Create(sourceType, targetType)), new Dictionary<Type, GenericAssociation>());
                 return null;
+            }
 
             Tuple<MapInfo, Dictionary<Type, GenericAssociation>> mostConcreteResult=results.First();
             foreach (var result in results.Skip(1))

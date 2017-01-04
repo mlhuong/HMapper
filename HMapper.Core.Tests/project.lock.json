@@ -2494,7 +2494,7 @@
           "lib/netstandard1.1/xunit.runner.utility.dotnet.dll": {}
         }
       },
-      "HMapper.Core/1.1.0": {
+      "HMapper.Core/1.1.1": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
@@ -7534,7 +7534,7 @@
         "xunit.runner.utility.nuspec"
       ]
     },
-    "HMapper.Core/1.1.0": {
+    "HMapper.Core/1.1.1": {
       "type": "project",
       "path": "../HMapper.Core/project.json",
       "msbuildProject": "../HMapper.Core/HMapper.Core.xproj"
@@ -7542,7 +7542,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "HMapper.Core >= 1.1.0",
+      "HMapper.Core >= 1.1.2",
       "NETStandard.Library >= 1.6.0",
       "dotnet-test-xunit >= 2.2.0-preview2-build1029",
       "xunit >= 2.2.0-beta4-build3444"

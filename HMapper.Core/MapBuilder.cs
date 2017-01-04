@@ -36,12 +36,7 @@ namespace HMapper
         {
             var targetType = mapInfo.TargetType.ReplaceGenerics(ReplacementType.Target, genericTypeAssociation);
             var sourceType = mapInfo.SourceType.ReplaceGenerics(ReplacementType.Source, genericTypeAssociation);
-
-            if (usedBuilders == null)
-                usedBuilders = new List<Tuple<Type, Type>>() { Tuple.Create(sourceType, targetType) };
-            else
-                usedBuilders.Add(Tuple.Create(sourceType, targetType));
-
+            
             // Generation of the CreateInstance function
             ParameterExpression varEntityRealType = Expression.Variable(sourceType);
             ParameterExpression varIncludeChain = Expression.Variable(typeof(IncludeChain));
@@ -68,13 +63,22 @@ namespace HMapper
                 varResult = Expression.Parameter(targetType);
                 var resultExpr = mapInfo.ExpressionBuilder(mapMode, targetType, sourceType, paramSource, paramIncludeChain, usedBuilders.ToList());
                 if (resultExpr == null) return null;
-                return Expression.Block(
-                    new ParameterExpression[] { (ParameterExpression)varResult },
-                    Expression.Assign(varResult, resultExpr),
-                    AddToCache(paramSource, varResult),
-                    varResult
-                    );
+                if (mapInfo.UseItemsCache)
+                {
+                    return Expression.Block(
+                        new ParameterExpression[] { (ParameterExpression)varResult },
+                        Expression.Assign(varResult, resultExpr),
+                        AddToCache(paramSource, varResult),
+                        varResult
+                        );
+                }
+                else return resultExpr;
             }
+
+            if (usedBuilders == null)
+                usedBuilders = new List<Tuple<Type, Type>>() { Tuple.Create(sourceType, targetType) };
+            else
+                usedBuilders.Add(Tuple.Create(sourceType, targetType));
 
             mainExpressions.Add(Expression.Assign(varEntityRealType, paramSource.Convert(sourceType)));
 
@@ -121,36 +125,15 @@ namespace HMapper
                 Expression entityMember = kpMember.Value.GetValueExpression(sourceType, varEntityRealType, genericTypeAssociation);
                 MemberInfo targetMemberInfo = closedTargetMembers.Single(x => x.Name == kpMember.Key.Name);
                 Expression assignExpr;
-
-                // Simple direct assignation with simple types.
+                
                 Type targetMemberType = targetMemberInfo.PropertyOrFieldType();
 
                 Expression includeExpr = mapMode == MapMode.All ? paramIncludeChain : varIncludeChain;
-                if (entityMember.Type.IsSimpleType())
-                {
-                    if (targetMemberType.IsAssignableFrom(entityMember.Type))
-                        assignExpr = Expression.Assign(targetMemberExpression, entityMember.Convert(targetMemberType));
-                    else continue;
-                }
-                else
-                {
-                    // Handling mapped type.
-                    Dictionary<Type, GenericAssociation> memberGenericTypeAssociation;
-                    MapInfo propMapInfo = MapInfo.Get(entityMember.Type, targetMemberType, false, out memberGenericTypeAssociation);
-                    if (propMapInfo == null)
-                    {
-                        if (targetMemberType.IsAssignableFrom(entityMember.Type))
-                            assignExpr = Expression.Assign(targetMemberExpression, entityMember.Convert(targetMemberType));
-                        else continue;
-                    }
-                    else
-                    {
-                        Expression GetTargetMemberExpr = PolymorphismManager.GetMostConcreteExpressionCreator(mapMode, entityMember, targetMemberType, includeExpr, usedBuilders);
-                        if (GetTargetMemberExpr == null)
-                            continue;
-                        assignExpr = Expression.Assign(targetMemberExpression, GetTargetMemberExpr);
-                    }
-                }
+
+                Expression GetTargetMemberExpr = PolymorphismManager.GetMostConcreteExpressionCreator(mapMode, entityMember, targetMemberType, includeExpr, usedBuilders);
+                if (GetTargetMemberExpr == null)
+                    continue;
+                assignExpr = Expression.Assign(targetMemberExpression, GetTargetMemberExpr);
 
                 IncludeChain dummyChain;
 

@@ -25,6 +25,8 @@ namespace HMapper.Tests.Business
         public VerySimpleClass VerySimpleClass2 { get; set; }
         public int[] IntArray { get; set; }
 
+        public bool UnmatchedProperty;
+
         public static SimpleClass Create(int id)
         {
             var person = new SimpleClass()

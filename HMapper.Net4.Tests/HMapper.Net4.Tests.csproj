@@ -74,6 +74,9 @@
     <Compile Include="..\HMapper.Core.Tests\Business\ClassWithBeforeAndAfterMapSub.cs">
       <Link>Business\ClassWithBeforeAndAfterMapSub.cs</Link>
     </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\ClassWithNullableTypes.cs">
+      <Link>Business\ClassWithNullableTypes.cs</Link>
+    </Compile>
     <Compile Include="..\HMapper.Core.Tests\Business\ClassWithSetOfUnmappedClass.cs">
       <Link>Business\ClassWithSetOfUnmappedClass.cs</Link>
     </Compile>
@@ -154,6 +157,9 @@
     </Compile>
     <Compile Include="..\HMapper.Core.Tests\DTO\ClassWithComplexFuncMappings.cs">
       <Link>DTO\ClassWithComplexFuncMappings.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\ClassWithNullableTypes.cs">
+      <Link>DTO\ClassWithNullableTypes.cs</Link>
     </Compile>
     <Compile Include="..\HMapper.Core.Tests\DTO\ClassWithSetOfUnmappedClass.cs">
       <Link>DTO\ClassWithSetOfUnmappedClass.cs</Link>

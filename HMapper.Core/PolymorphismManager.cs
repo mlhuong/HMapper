@@ -31,19 +31,18 @@ namespace HMapper
         /// <returns></returns>
         internal static Expression GetMostConcreteExpressionCreator(MapMode mapMode, Expression source, Type targetType, Expression includeChain, List<Tuple<Type, Type>> usedBuilders)
         {
-            MapInfo mapInfo=null;
-            Dictionary<Type, GenericAssociation> genericTypeAssociation = null;
+            Dictionary<Type, GenericAssociation> genericTypeAssociation;
             Expression builderExpression;
-            if (source.Type != typeof(object))
-            {
-                if (source.Type.IsSimpleType())
-                    return source;
+            //if (source.Type != typeof(object))
+            //{
+            //    if (source.Type.IsSimpleType())
+            //        return source.Convert(targetType);
 
-                mapInfo = MapInfo.Get(source.Type, targetType, false, out genericTypeAssociation);
+            //    mapInfo = MapInfo.Get(source.Type, targetType, false, out genericTypeAssociation);
 
-                if (mapInfo == null)
-                    return targetType.IsAssignableFrom(source.Type) ? source : null;
-            }
+            //    if (mapInfo == null)
+            //        return targetType.IsAssignableFrom(source.Type) ? source.Convert(targetType) : null;
+            //}
 
             if (MapInfo._PolymorphTypes.Contains(source.Type) || usedBuilders.Contains(Tuple.Create(source.Type, targetType)))
             {
@@ -66,6 +65,10 @@ namespace HMapper
             }
             else
             {
+                MapInfo mapInfo = MapInfo.Get(source.Type, targetType, false, out genericTypeAssociation);
+                if (mapInfo == null)
+                    return targetType.IsAssignableFrom(source.Type) ? source.Convert(targetType) : null;
+
                 var actualBuilderExpression = MapBuilder.CreateBuilderExpression(
                                 mapMode: mapMode,
                                 mapInfo: mapInfo,
@@ -81,7 +84,7 @@ namespace HMapper
             var resultVar = Expression.Variable(targetType);
 
             Expression result;
-            if (source.Type.GetTypeInfo().IsValueType) // enums. Simple types have been handled earlier.
+            if (source.Type.IsSimpleType()) // enums. Simple types have been handled earlier.
                 result = builderExpression;
             else
                 result = Expression.Block(
@@ -106,19 +109,7 @@ namespace HMapper
         /// <returns></returns>
         internal static Expression GetMostConcreteExpressionFiller(MapMode mapMode, Expression source, Expression target, Expression includeChain)
         {
-            MapInfo mapInfo = null;
             Dictionary<Type, GenericAssociation> genericTypeAssociation = null;
-
-            if (source.Type != typeof(object))
-            {
-                if (source.Type.IsSimpleType())
-                    return source;
-
-                mapInfo = MapInfo.Get(source.Type, target.Type, true, out genericTypeAssociation);
-
-                if (mapInfo == null)
-                    return target.Type.IsAssignableFrom(source.Type) ? source : null;
-            }
 
             if (MapInfo._PolymorphTypes.Contains(source.Type))
             {
@@ -139,6 +130,10 @@ namespace HMapper
             }
             else
             {
+                MapInfo mapInfo = MapInfo.Get(source.Type, target.Type, true, out genericTypeAssociation);
+                if (mapInfo == null)
+                    return target.Type.IsAssignableFrom(source.Type) ? source : null;
+
                 return MapBuilder.CreateBuilderExpression(
                                 mapMode: mapMode,
                                 mapInfo: mapInfo,

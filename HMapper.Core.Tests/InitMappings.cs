@@ -19,6 +19,7 @@ namespace HMapper.Tests
                     .WithMember(x => x.Key, api => api.LinkTo(nameof(Business.SimpleClass.Id)));
                 initializer.Map<int[], DTO.ClassWithComplexFuncMappings>()
                     .WithMember(x => x.VerySimpleClasses, api => api.LinkTo(arr => arr.Select(item => new Business.VerySimpleClass() { MyInt = item, MyString = item.ToString() }).ToArray()))
+                    .WithMember(x => x.VerySimpleClass, api => api.LinkTo(arr => new DTO.VerySimpleClass() { MyInt = 77, MyString = "test" }))
                     .WithMember(x => x.ADate, api => api.LinkTo(arr => ((DTO.SimpleClass)null).Date))
                     .WithMember(x => x.AStruct, api => api.LinkTo(arr => ((DTO.ClassWithStructAndEnum)null).AStruct))
                     .WithMember(x => x.AString, api => api.LinkTo(arr => (DTO.ClassWithComplexFuncMappings.AFunction().FirstOrDefault(x => x.MyInt == 5).MyString)))
@@ -30,6 +31,7 @@ namespace HMapper.Tests
                 initializer.Map<Business.DictionarySet, DTO.DictionarySet>();
                 initializer.Map<Business.DictionarySetCircular, DTO.DictionarySetCircular>()
                     .EnableItemsCache();
+                initializer.Map<Business.ClassWithNullableTypes, DTO.ClassWithNullableTypes>();
                 initializer.Map<Business.SimpleGeneric<TGen1>, DTO.SimpleGeneric<TGen1>>();
                 initializer.Map<Business.SimpleGeneric2<TGen1>, DTO.SimpleGeneric2<TGen1>>()
                     .WithMember(x => x.AnotherGenericProperty, api => api.LinkTo(x => x.GenericProperty))
@@ -60,7 +62,7 @@ namespace HMapper.Tests
                     .BeforeMap((source, target) => { source.Name = "beforeMap"; })
                     .AfterMap((source, target) => { source.Name = "afterMap"; });
                 initializer.Map<Business.ClassWithBeforeAndAfterMapSub, DTO.ClassWithBeforeAndAfterMapSub>()
-                    .WithMember(x => x.AnInt, api=> api.Ignore())
+                    .WithMember(x => x.AnInt, api => api.Ignore())
                     .BeforeMap((source, target) => { source.StringFromSub = "beforeMap"; })
                     .AfterMap((source, target) => { source.StringFromSub = "afterMap"; });
                 initializer.Map<Business.ClassForInclusions, DTO.ClassForInclusions>()

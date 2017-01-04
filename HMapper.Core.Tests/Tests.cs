@@ -96,6 +96,18 @@ namespace HMapper.Tests
         }
 
         [Fact]
+        public void TestNullableTypes()
+        {
+            var source = ClassWithNullableTypes.Create();
+            Run(source, x => new DTO.ClassWithNullableTypes(x));
+
+            var DTO = new DTO.ClassWithNullableTypes() { Int1 = 5 };
+            var manual = new DTO.ClassWithNullableTypes(source);
+            Mapper.Fill(source, DTO);
+            Assert.Equal(DTO, manual);
+        }
+
+        [Fact]
         public void TestSimpleGenericOfInt()
         {
             Run(SimpleGeneric<int>.Create(1, 100), x => new DTO.SimpleGeneric<int>(x));
@@ -182,7 +194,10 @@ namespace HMapper.Tests
             var targetDTO = new DTO.SubSimpleClass() { AdditionalInfo = "addInfo" };
             Mapper.Fill<SimpleClass, DTO.SimpleClass>(source, targetDTO);
             var manual = new DTO.SubSimpleClass(source, "addInfo");
+            Assert.Equal(targetDTO, manual);
 
+            targetDTO = new DTO.SubSimpleClass() { AdditionalInfo = "addInfo" };
+            Mapper.Fill<object, object>(source, targetDTO);
             Assert.Equal(targetDTO, manual);
 
             targetDTO = new DTO.SubSimpleClass() { AdditionalInfo = "addInfo" };
@@ -192,7 +207,6 @@ namespace HMapper.Tests
 
             targetDTO = new DTO.SubSimpleClass() { AdditionalInfo = "addInfo" };
             Mapper.Fill<SimpleClass, DTO.SimpleClass>(source, targetDTO, x => x.VerySimpleClass);
-            manual.IntArray = null;
             Assert.Equal(targetDTO, manual);
         }
 
@@ -243,7 +257,8 @@ namespace HMapper.Tests
             var manual = new DTO.ClassWithComplexFuncMappings()
             {
                 ADate = default(DateTime),
-                VerySimpleClasses = arr.Select(item => new DTO.VerySimpleClass(new VerySimpleClass() { MyInt = item, MyString = item.ToString() })).ToArray()
+                VerySimpleClasses = arr.Select(item => new DTO.VerySimpleClass(new VerySimpleClass() { MyInt = item, MyString = item.ToString() })).ToArray(),
+                VerySimpleClass = new DTO.VerySimpleClass() { MyInt = 77, MyString = "test" }
             };
             Assert.Equal(MyDTO, manual);
         }

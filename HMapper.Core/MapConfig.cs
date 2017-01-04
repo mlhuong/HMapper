@@ -25,15 +25,8 @@ namespace HMapper
             _MappingInitialized = false;
             _Mutex = new object();
             _MapperAPIInitializer = new MapperAPIInitializer();
-            // Creation of mapInfos for collections
 
-            _MapperAPIInitializer.MapExpression<IEnumerable<TGen1>, TGen1[]>(ArrayBuilder.GetExpression);
-            _MapperAPIInitializer.MapExpression<IEnumerable<TGen1>, List<TGen1>>(ListBuilder.GetExpression);
-            _MapperAPIInitializer.MapExpression<IEnumerable<TGen1>, Collection<TGen1>>(CollectionBuilder.GetExpression);
-            _MapperAPIInitializer.MapExpression<IEnumerable<TGen1>, HashSet<TGen1>>(HashSetBuilder.GetExpression);
-            _MapperAPIInitializer.MapExpression<IDictionary<TGen1, TGen2>, Dictionary<TGen1, TGen2>>(DictionaryBuilder.GetExpression);
-
-            _MapperAPIInitializer.ManualMap<IEnumerable, ArrayList>((listEntity) => new ArrayList(listEntity.Cast<object>().Select(item => Mapper.Map<object,object>(item)).ToArray()));
+            
         }
 
         /// <summary>
@@ -49,6 +42,14 @@ namespace HMapper
 
                 initialize(_MapperAPIInitializer);
                 _MappingInitialized = true;
+
+                // Creation of mapInfos for collections
+                _MapperAPIInitializer.MapExpression<IEnumerable<TGen1>, TGen1[]>(ArrayBuilder.GetExpression);
+                _MapperAPIInitializer.MapExpression<IEnumerable<TGen1>, List<TGen1>>(ListBuilder.GetExpression);
+                _MapperAPIInitializer.MapExpression<IEnumerable<TGen1>, Collection<TGen1>>(CollectionBuilder.GetExpression);
+                _MapperAPIInitializer.MapExpression<IEnumerable<TGen1>, HashSet<TGen1>>(HashSetBuilder.GetExpression);
+                _MapperAPIInitializer.MapExpression<IDictionary<TGen1, TGen2>, Dictionary<TGen1, TGen2>>(DictionaryBuilder.GetExpression);
+                _MapperAPIInitializer.ManualMap<IEnumerable, ArrayList>((listEntity) => new ArrayList(listEntity.Cast<object>().Select(item => Mapper.Map<object, object>(item)).ToArray()));
 
                 // Validation of mapInfos.
                 foreach (var mapInfo in MapInfo._CacheGenericMaps.Values)

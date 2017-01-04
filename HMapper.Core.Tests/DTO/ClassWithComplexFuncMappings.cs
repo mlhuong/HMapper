@@ -9,6 +9,7 @@ namespace HMapper.Tests.DTO
     public class ClassWithComplexFuncMappings
     {
         public VerySimpleClass[] VerySimpleClasses;
+        public VerySimpleClass VerySimpleClass;
         public string AString;
         public DateTime? ADate;
         public ClassWithStructAndEnum.MyStruct AStruct;
@@ -29,6 +30,7 @@ namespace HMapper.Tests.DTO
             if (obj.GetType() != typeof(ClassWithComplexFuncMappings)) return false;
             var target = obj as ClassWithComplexFuncMappings;
             return VerySimpleClasses.EnumerableEquals(target.VerySimpleClasses)
+                && VerySimpleClass.NullOrEquals(target.VerySimpleClass)
                 && AString == target.AString
                 && ADate == target.ADate
                 && AStruct == target.AStruct;

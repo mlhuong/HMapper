@@ -27,6 +27,8 @@ namespace HMapper.Tests.DTO
         public DateTime Date_Plus_2 { get; set; }
         public string VerySimpleClass2String { get; set; }
 
+        public decimal UnmatchedProperty;
+
         public SimpleClass() { }
 
         public SimpleClass(Business.SimpleClass simpleClass)
