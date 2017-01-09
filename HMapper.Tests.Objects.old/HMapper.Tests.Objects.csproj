@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3502174F-C49D-4197-9B85-8F734394B084}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HMapper.Tests.Objects</RootNamespace>
+    <AssemblyName>HMapper.Tests.Objects</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>Profile75</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .NET Framework is automatically included -->
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Business\AutoReferencedClass.cs" />
+    <Compile Include="Business\ClassForInclusions.cs" />
+    <Compile Include="Business\ClassWithBeforeAndAfterMap.cs" />
+    <Compile Include="Business\ClassWithBeforeAndAfterMapSub.cs" />
+    <Compile Include="Business\ClassWithSetOfUnmappedClass.cs" />
+    <Compile Include="Business\ClassWithStructAndEnum.cs" />
+    <Compile Include="Business\DictionarySet.cs" />
+    <Compile Include="Business\DictionarySetCircular.cs" />
+    <Compile Include="Business\FuncMappingPolymorph.cs" />
+    <Compile Include="Business\FuncMappingPolymorphSub.cs" />
+    <Compile Include="Business\IInterfaceForFuncMappingPolymorph.cs" />
+    <Compile Include="Business\IPolymorphic.cs" />
+    <Compile Include="Business\ManuallyMappedClass.cs" />
+    <Compile Include="Business\MappedObjectGeneric.cs" />
+    <Compile Include="Business\MultipleGenerics.cs" />
+    <Compile Include="Business\MultipleSets.cs" />
+    <Compile Include="Business\PolymorphicBaseClass.cs" />
+    <Compile Include="Business\PolymorphicSubClass.cs" />
+    <Compile Include="Business\PolymorphicSubSubClass.cs" />
+    <Compile Include="Business\SetOfGenericPolymorph.cs" />
+    <Compile Include="Business\SetOfPolymorphic.cs" />
+    <Compile Include="Business\SimpleClass.cs" />
+    <Compile Include="Business\SimpleGeneric.cs" />
+    <Compile Include="Business\SimpleGeneric2.cs" />
+    <Compile Include="Business\SimpleSet.cs" />
+    <Compile Include="Business\VerySimpleClass.cs" />
+    <Compile Include="DTO\AutoReferencedClass.cs" />
+    <Compile Include="DTO\ClassForInclusions.cs" />
+    <Compile Include="DTO\ClassWithBeforeAndAfterMap.cs" />
+    <Compile Include="DTO\ClassWithBeforeAndAfterMapSub.cs" />
+    <Compile Include="DTO\ClassWithComplexFuncMappings.cs" />
+    <Compile Include="DTO\ClassWithSetOfUnmappedClass.cs" />
+    <Compile Include="DTO\ClassWithStructAndEnum.cs" />
+    <Compile Include="DTO\ContainerOfManuallyMappedClass.cs" />
+    <Compile Include="DTO\DictionarySet.cs" />
+    <Compile Include="DTO\DictionarySetCircular.cs" />
+    <Compile Include="DTO\FuncMappingPolymorph.cs" />
+    <Compile Include="DTO\FuncMappingPolymorphSub.cs" />
+    <Compile Include="DTO\IPolymorphic.cs" />
+    <Compile Include="DTO\MappedObjectGeneric.cs" />
+    <Compile Include="DTO\MultipleGenerics.cs" />
+    <Compile Include="DTO\MultipleSets.cs" />
+    <Compile Include="DTO\PolymorphicBaseClass.cs" />
+    <Compile Include="DTO\PolymorphicSubClass.cs" />
+    <Compile Include="DTO\SetOfGenericPolymorph.cs" />
+    <Compile Include="DTO\SetOfPolymorphic.cs" />
+    <Compile Include="DTO\SimpleClass.cs" />
+    <Compile Include="DTO\SimpleClass2.cs" />
+    <Compile Include="DTO\SimpleGeneric.cs" />
+    <Compile Include="DTO\SimpleGeneric2.cs" />
+    <Compile Include="DTO\SimpleSet.cs" />
+    <Compile Include="DTO\SubSimpleClass.cs" />
+    <Compile Include="DTO\VerySimpleClass.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

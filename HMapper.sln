@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMapper.Net4.Tests", "HMapper.Net4.Tests\HMapper.Net4.Tests.csproj", "{ED347D4D-0D00-4468-9598-A2338517A9D9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D524C434-2EDF-4661-B21F-BB3A28D77982}"
+	ProjectSection(SolutionItems) = preProject
+		Changes.txt = Changes.txt
+		global.json = global.json
+		Nuget.txt = Nuget.txt
+		Package.nuspec = Package.nuspec
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "HMapper.Core", "HMapper.Core\HMapper.Core.xproj", "{8C5F7201-D801-4B44-A859-E64343B487A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMapper.Net4", "HMapper.Net4\HMapper.Net4.csproj", "{34024212-FBD1-4662-B7AB-C915960E4C39}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "HMapper.Core.Tests", "HMapper.Core.Tests\HMapper.Core.Tests.xproj", "{01CF3369-3259-4E13-B761-995410709707}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ED347D4D-0D00-4468-9598-A2338517A9D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED347D4D-0D00-4468-9598-A2338517A9D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED347D4D-0D00-4468-9598-A2338517A9D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED347D4D-0D00-4468-9598-A2338517A9D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C5F7201-D801-4B44-A859-E64343B487A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C5F7201-D801-4B44-A859-E64343B487A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C5F7201-D801-4B44-A859-E64343B487A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C5F7201-D801-4B44-A859-E64343B487A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34024212-FBD1-4662-B7AB-C915960E4C39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34024212-FBD1-4662-B7AB-C915960E4C39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34024212-FBD1-4662-B7AB-C915960E4C39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34024212-FBD1-4662-B7AB-C915960E4C39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01CF3369-3259-4E13-B761-995410709707}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01CF3369-3259-4E13-B761-995410709707}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01CF3369-3259-4E13-B761-995410709707}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01CF3369-3259-4E13-B761-995410709707}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
