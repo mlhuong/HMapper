@@ -10,10 +10,10 @@ namespace HMapper.Tests.Business
     {
         public string MyString;
         public int MyInt;
+        static Random rnd = new Random();
 
         public static VerySimpleClass Create()
         {
-            var rnd = new Random();
             return new VerySimpleClass()
             {
                 MyString = $"str{rnd.Next()}",

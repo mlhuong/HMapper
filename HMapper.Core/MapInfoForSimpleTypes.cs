@@ -1,4 +1,5 @@
 ﻿using HMapper.Extensions;
+using Metadata;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -21,11 +22,12 @@ namespace HMapper
         static Expression GetExpression(MapMode mapMode, Type targetType, Type sourceType, Expression sourceExpr, Expression includeChain, List<Tuple<Type, Type>> usedBuilders)
         {
             if (targetType.IsAssignableFrom(sourceType)) return sourceExpr.Convert(targetType);
-            
+
             // Nullable types
             if (sourceType.GetTypeInfo().IsGenericType && sourceType.GetGenericTypeDefinition()==typeof(Nullable<>))
-                return Expression.Call(sourceExpr, sourceType.GetMethod("GetValueOrDefault", Type.EmptyTypes));
+                return Expression.Call(sourceExpr, sourceType.GetMethod("GetValueOrDefault", Type.EmptyTypes)).Convert(targetType);
 
+            if (sourceType.IsCastableTo(targetType)) return sourceExpr.Convert(targetType);
             return null;
         }
 

@@ -19,7 +19,7 @@ namespace HMapper
         /// <summary>
         /// Dictionary of tuples of Target/Source. Each value represents the mapping info for a target/source pair.
         /// </summary>        
-        static internal ConcurrentDictionary<Tuple<Type,Type>, MapInfo> _CacheGenericMaps;
+        static internal List<MapInfo> _CacheGenericMaps;
         static internal ConcurrentDictionary<Tuple<Type, Type, bool>, Tuple<MapInfo, Dictionary<Type, GenericAssociation>>> _CacheConcreteMaps;
         static internal List<Type> _PolymorphTypes;
 
@@ -76,7 +76,7 @@ namespace HMapper
         /// </summary>
         static MapInfo()
         {
-            _CacheGenericMaps = new ConcurrentDictionary<Tuple<Type, Type>, MapInfo>();
+            _CacheGenericMaps = new List<MapInfo>();
             _CacheConcreteMaps = new ConcurrentDictionary<Tuple<Type, Type, bool>, Tuple<MapInfo, Dictionary<Type, GenericAssociation>>>();
             _PolymorphTypes = new List<Type>() { typeof(object) };
         }
@@ -220,18 +220,20 @@ namespace HMapper
             var sourceTypeAssociation = new Dictionary<Type, Type>();
             var results = new List<Tuple<MapInfo, Dictionary<Type, GenericAssociation>>>();
 
-                foreach (var kp in _CacheGenericMaps)
-                {
-                    if (results.Any(x => x.Item1 == kp.Value))
-                        continue;
+            foreach (var curMapInfo in _CacheGenericMaps)
+            {
+                if (results.Any(x => x.Item1 == curMapInfo))
+                    continue;
 
-                    if (IsCompatibleSourceType(kp.Key.Item1, sourceType, out sourceTypeAssociation))
-                    { 
-                        Dictionary<Type, GenericAssociation> resultDic;
-                        if (IsCompatibleTargetType(fillMode, kp.Key.Item2.GetTypeInfo(), targetType.GetTypeInfo(), sourceTypeAssociation, out resultDic))
-                            results.Add(Tuple.Create(kp.Value, resultDic));
-                    }
+                if (IsCompatibleSourceType(curMapInfo.SourceType, sourceType, out sourceTypeAssociation))
+                {
+                    Dictionary<Type, GenericAssociation> resultDic;
+                    if (IsCompatibleTargetType(fillMode, curMapInfo.TargetType.GetTypeInfo(), targetType.GetTypeInfo(), sourceTypeAssociation, out resultDic))
+                        results.Add(Tuple.Create(curMapInfo, resultDic));
+                    else
+                        ;
                 }
+            }
 
             if (!results.Any())
             {
@@ -241,9 +243,16 @@ namespace HMapper
             }
 
             Tuple<MapInfo, Dictionary<Type, GenericAssociation>> mostConcreteResult=results.First();
+
+            // Take the most concrete source type, and least concrete target type.
             foreach (var result in results.Skip(1))
             {
-                if (mostConcreteResult.Item1.SourceType.IsAssignableFrom(result.Item1.SourceType))
+                if (mostConcreteResult.Item1.SourceType == result.Item1.SourceType)
+                {
+                    if (result.Item1.TargetType.IsAssignableFrom(mostConcreteResult.Item1.TargetType))
+                        mostConcreteResult = result;
+                }
+                else if (mostConcreteResult.Item1.SourceType.IsAssignableFrom(result.Item1.SourceType))
                     mostConcreteResult = result;
             }
             return mostConcreteResult;
@@ -281,23 +290,23 @@ namespace HMapper
                 var targetMembers = TargetType.GetMembers(BindingFlags.Instance | BindingFlags.Public).Where(x => x is FieldInfo || (x is PropertyInfo && (x as PropertyInfo).GetSetMethod() != null)).ToArray();
 
                 // Get inherit member mappings and before/after map delegates
-                foreach (var kp in _CacheGenericMaps.Where(x => x.Value != this))
+                foreach (var curMapInfo in _CacheGenericMaps.Where(x => x != this))
                 {
-                    if (kp.Key.Item2.IsAssignableFrom(TargetType) && kp.Key.Item1.IsAssignableFrom(SourceType))
+                    if (curMapInfo.TargetType.IsAssignableFrom(TargetType) && curMapInfo.SourceType.IsAssignableFrom(SourceType))
                     {
-                        if (!_PolymorphTypes.Contains(kp.Key.Item1))
-                            _PolymorphTypes.Add(kp.Key.Item1);
+                        if (!_PolymorphTypes.Contains(curMapInfo.SourceType))
+                            _PolymorphTypes.Add(curMapInfo.SourceType);
 
-                        foreach (var member in kp.Value.Members)
+                        foreach (var member in curMapInfo.Members)
                         {
                             var memberInfo = targetMembers.Single(x => x.Name == member.Key.Name);
                             if (!Members.Any(x => x.Key.Name == memberInfo.Name))
                                 Members.Add(memberInfo, member.Value);
                         }
-                        var baseBeforeMaps = kp.Value.BeforeMaps.ToList();
+                        var baseBeforeMaps = curMapInfo.BeforeMaps.ToList();
                         baseBeforeMaps.AddRange(BeforeMaps);
                         BeforeMaps = baseBeforeMaps;
-                        var baseAfterMaps = kp.Value.AfterMaps.ToList();
+                        var baseAfterMaps = curMapInfo.AfterMaps.ToList();
                         baseAfterMaps.AddRange(AfterMaps);
                         AfterMaps = baseAfterMaps;
                     }

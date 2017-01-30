@@ -80,6 +80,9 @@
     <Compile Include="..\HMapper.Core.Tests\Business\ClassWithSetOfUnmappedClass.cs">
       <Link>Business\ClassWithSetOfUnmappedClass.cs</Link>
     </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\ClassWithSimpleTypes.cs">
+      <Link>Business\ClassWithSimpleTypes.cs</Link>
+    </Compile>
     <Compile Include="..\HMapper.Core.Tests\Business\ClassWithStructAndEnum.cs">
       <Link>Business\ClassWithStructAndEnum.cs</Link>
     </Compile>
@@ -163,6 +166,9 @@
     </Compile>
     <Compile Include="..\HMapper.Core.Tests\DTO\ClassWithSetOfUnmappedClass.cs">
       <Link>DTO\ClassWithSetOfUnmappedClass.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\ClassWithSimpleTypes.cs">
+      <Link>DTO\ClassWithSimpleTypes.cs</Link>
     </Compile>
     <Compile Include="..\HMapper.Core.Tests\DTO\ClassWithStructAndEnum.cs">
       <Link>DTO\ClassWithStructAndEnum.cs</Link>

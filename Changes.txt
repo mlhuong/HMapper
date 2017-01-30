@@ -1,4 +1,8 @@
-﻿Verison 1.1.2
+﻿Verison 1.1.3
+==================
+- Added : Automatic conversion with castable simple types (double vs single, Int32 vs Int16, etc...)
+
+Verison 1.1.2
 ==================
 - Fixed : regression bug in some polymorphic cases.
 

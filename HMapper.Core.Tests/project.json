@@ -3,7 +3,7 @@
   "testRunner": "xunit",
 
   "dependencies": {
-    "HMapper.Core": "1.1.2",
+    "HMapper.Core": "1.1.3",
     "NETStandard.Library": "1.6.0",
     "xunit": "2.2.0-beta4-build3444",
     "dotnet-test-xunit": "2.2.0-preview2-build1029"

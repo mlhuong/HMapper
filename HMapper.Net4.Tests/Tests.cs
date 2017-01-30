@@ -115,6 +115,12 @@ namespace HMapper.Tests
         }
 
         [TestMethod]
+        public void TestSimpleTypes()
+        {
+            Run(ClassWithSimpleTypes.Create(), x => new DTO.ClassWithSimpleTypes(x));
+        }
+
+        [TestMethod]
         public void TestSimpleGenericOfInt()
         {
             Run(SimpleGeneric<int>.Create(1, 100), x => new DTO.SimpleGeneric<int>(x));

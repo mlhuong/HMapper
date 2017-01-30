@@ -139,9 +139,6 @@
     <Compile Include="..\HMapper.Core\MemberMapping.cs">
       <Link>MemberMapping.cs</Link>
     </Compile>
-    <Compile Include="..\HMapper.Core\Metadata\Cloner.cs">
-      <Link>Metadata\Cloner.cs</Link>
-    </Compile>
     <Compile Include="..\HMapper.Core\Metadata\MemberInfoExtension.cs">
       <Link>Metadata\MemberInfoExtension.cs</Link>
     </Compile>

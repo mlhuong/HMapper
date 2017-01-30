@@ -69,6 +69,7 @@ namespace HMapper.Tests
                     .WithMember(x => x.AString, api => api.LinkTo(x => x.AString, RetrievalMode.RetrievedWhenSpecified))
                     .WithMember(x => x.ADate, api => api.LinkTo(x => DateTime.Today, RetrievalMode.RetrievedWhenSpecified));
                 initializer.Map<Business.ClassWithSetOfUnmappedClass, DTO.ClassWithSetOfUnmappedClass>();
+                initializer.Map<Business.ClassWithSimpleTypes, DTO.ClassWithSimpleTypes>();
             });
 
             

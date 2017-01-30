@@ -73,8 +73,7 @@ namespace HMapper.Tests
         [Fact]
         public void TestMultipleCollections()
         {
-            var tmp = Mapper.Map<int, int>(5);
-            Run(MultipleSets.Create(1), x => new DTO.MultipleSets(x));
+            Run(MultipleSets.Create(3), x => new DTO.MultipleSets(x));
         }
 
         [Fact]
@@ -105,6 +104,12 @@ namespace HMapper.Tests
             var manual = new DTO.ClassWithNullableTypes(source);
             Mapper.Fill(source, DTO);
             Assert.Equal(DTO, manual);
+        }
+
+        [Fact]
+        public void TestSimpleTypes()
+        {
+            Run(ClassWithSimpleTypes.Create(), x => new DTO.ClassWithSimpleTypes(x));
         }
 
         [Fact]
@@ -326,8 +331,8 @@ namespace HMapper.Tests
 
         private void Run<TSource, TTarget>(TSource source, Func<TSource, TTarget> targetFactory)
         {
-            var myDTO = Mapper.Map<TSource,TTarget>(source);
             var manual = targetFactory(source);
+            var myDTO = Mapper.Map<TSource,TTarget>(source);
             Assert.Equal(myDTO, manual);
         }
     }

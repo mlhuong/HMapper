@@ -31,11 +31,12 @@ namespace HMapper
         public IMapperAPI<TSource, TTarget> Map<TSource, TTarget>()
         {
             Tuple<Type, Type> tuple = new Tuple<Type, Type>(typeof(TSource), typeof(TTarget));
-            if (MapInfo._CacheGenericMaps.ContainsKey(tuple))
+            if (MapInfo._CacheGenericMaps.Any(x => x.SourceType== typeof(TSource) && x.TargetType== typeof(TTarget)))
                 throw new Exception($"The target type {typeof(TTarget).FullName} is already mapped to the type {typeof(TSource).FullName}.");
 
             CheckGenerics<TSource, TTarget>();
-            var mapInfo = MapInfo._CacheGenericMaps.GetOrAdd(tuple, t => new MapInfo(tuple, ItemCacheEnabledByDefault));
+            var mapInfo = new MapInfo(tuple, ItemCacheEnabledByDefault);
+            MapInfo._CacheGenericMaps.Add(mapInfo);
             return new MapperAPI<TSource, TTarget>(mapInfo);
         }
 
@@ -51,10 +52,12 @@ namespace HMapper
             Type openSourceType = sourceType.GetGenType();
 
             Tuple<Type, Type> tuple = new Tuple<Type, Type>(openSourceType, openTargetType);
-            if (MapInfo._CacheGenericMaps.ContainsKey(tuple))
-               throw new Exception($"The target type {targetType.FullName} is already mapped to the type {sourceType.FullName}.");
+            if (MapInfo._CacheGenericMaps.Any(x => x.SourceType == sourceType && x.TargetType == targetType))
+                throw new Exception($"The target type {targetType.FullName} is already mapped to the type {sourceType.FullName}.");
 
-            var mapInfo = MapInfo._CacheGenericMaps.GetOrAdd(tuple, t => new MapInfo(tuple, ItemCacheEnabledByDefault));
+            var mapInfo = new MapInfo(tuple, ItemCacheEnabledByDefault);
+            MapInfo._CacheGenericMaps.Add(mapInfo);
+            
             return new MapperAPI(mapInfo);
         }
 
@@ -67,18 +70,19 @@ namespace HMapper
         public IMapperAPI ManualMap<TSource, TTarget>(Expression<Func<TSource, TTarget>> builder)
         {
             Tuple<Type, Type> tuple = new Tuple<Type, Type>(typeof(TSource), typeof(TTarget));
-            if (MapInfo._CacheGenericMaps.ContainsKey(tuple))
+            if (MapInfo._CacheGenericMaps.Any(x => x.SourceType == typeof(TSource) && x.TargetType == typeof(TTarget)))
                 throw new Exception($"The target type {typeof(TTarget).FullName} is already mapped to the type {typeof(TSource).FullName}.");
 
             CheckGenerics<TSource, TTarget>();
-            var mapInfo = MapInfo._CacheGenericMaps.GetOrAdd(tuple, t => new MapInfo(tuple, ItemCacheEnabledByDefault)
+            var mapInfo = new MapInfo(tuple, ItemCacheEnabledByDefault)
             {
                 ManualBuilder = Expression.Lambda(
                 typeof(Func<TSource, TTarget>),
                 builder.Body,
                 builder.Parameters[0]
                 )
-            });
+            };
+            MapInfo._CacheGenericMaps.Add(mapInfo);
             return new MapperAPI(mapInfo);
         }
 
@@ -91,11 +95,13 @@ namespace HMapper
         internal void MapExpression<TSource, TTarget>(MapBuilder.MapExpressionDlg expressionDlg)
         {
             Tuple<Type, Type> tuple = new Tuple<Type, Type>(typeof(TSource), typeof(TTarget));
-            if (MapInfo._CacheGenericMaps.ContainsKey(tuple))
+            if (MapInfo._CacheGenericMaps.Any(x => x.SourceType == typeof(TSource) && x.TargetType == typeof(TTarget)))
                 return;
 
             CheckGenerics<TSource, TTarget>();
-            MapInfo._CacheGenericMaps.GetOrAdd(tuple, t => new MapInfo(tuple, false) { ExpressionBuilder = expressionDlg });
+            var mapInfo = new MapInfo(tuple, false) { ExpressionBuilder = expressionDlg };
+
+            MapInfo._CacheGenericMaps.Add(mapInfo);
         }
 
         private void CheckGenerics<TSource, TTarget>()

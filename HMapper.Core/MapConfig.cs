@@ -52,7 +52,7 @@ namespace HMapper
                 _MapperAPIInitializer.ManualMap<IEnumerable, ArrayList>((listEntity) => new ArrayList(listEntity.Cast<object>().Select(item => Mapper.Map<object, object>(item)).ToArray()));
 
                 // Validation of mapInfos.
-                foreach (var mapInfo in MapInfo._CacheGenericMaps.Values)
+                foreach (var mapInfo in MapInfo._CacheGenericMaps)
                     mapInfo.Validate();
             }
         }

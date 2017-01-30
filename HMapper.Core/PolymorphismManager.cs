@@ -33,16 +33,6 @@ namespace HMapper
         {
             Dictionary<Type, GenericAssociation> genericTypeAssociation;
             Expression builderExpression;
-            //if (source.Type != typeof(object))
-            //{
-            //    if (source.Type.IsSimpleType())
-            //        return source.Convert(targetType);
-
-            //    mapInfo = MapInfo.Get(source.Type, targetType, false, out genericTypeAssociation);
-
-            //    if (mapInfo == null)
-            //        return targetType.IsAssignableFrom(source.Type) ? source.Convert(targetType) : null;
-            //}
 
             if (MapInfo._PolymorphTypes.Contains(source.Type) || usedBuilders.Contains(Tuple.Create(source.Type, targetType)))
             {

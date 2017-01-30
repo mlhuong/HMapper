@@ -38,6 +38,7 @@ namespace HMapper.Tests.DTO
             String = simpleClass.String;
             Date = simpleClass.Date;
             NullableDate = simpleClass.NullableDate;
+            OtherDate = simpleClass.OtherDate;
             Bool = simpleClass.Bool;
             IntArray = simpleClass.IntArray;
             Date_Plus_2 = simpleClass.Date.AddDays(2);
@@ -66,6 +67,7 @@ namespace HMapper.Tests.DTO
                 && Date == target.Date
                 && Date_Plus_2 == target.Date_Plus_2
                 && NullableDate == target.NullableDate
+                && OtherDate == target.OtherDate
                 && Bool == target.Bool
                 && IntArray.EnumerableEquals(target.IntArray)
                 && VerySimpleClass.NullOrEquals(target.VerySimpleClass)
