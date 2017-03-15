@@ -1,4 +1,8 @@
-﻿Verison 1.1.3
+﻿Version 1.1.4
+==================
+- Fixed: Properly managed mapping overrides when dealing with subs of sub classes.
+
+Verison 1.1.3
 ==================
 - Added : Automatic conversion with castable simple types (double vs single, Int32 vs Int16, etc...)
 

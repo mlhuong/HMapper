@@ -206,6 +206,9 @@
     <Compile Include="..\HMapper.Core.Tests\DTO\PolymorphicSubClass.cs">
       <Link>DTO\PolymorphicSubClass.cs</Link>
     </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\PolymorphicSubSubClass.cs">
+      <Link>DTO\PolymorphicSubSubClass.cs</Link>
+    </Compile>
     <Compile Include="..\HMapper.Core.Tests\DTO\SetOfGenericPolymorph.cs">
       <Link>DTO\SetOfGenericPolymorph.cs</Link>
     </Compile>

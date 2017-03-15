@@ -289,6 +289,8 @@ namespace HMapper
             {
                 var targetMembers = TargetType.GetMembers(BindingFlags.Instance | BindingFlags.Public).Where(x => x is FieldInfo || (x is PropertyInfo && (x as PropertyInfo).GetSetMethod() != null)).ToArray();
 
+                var ownMappings = Members.ToDictionary(x=>x.Key, x=>x.Value);
+                Members = new Dictionary<MemberInfo, IMapping>();
                 // Get inherit member mappings and before/after map delegates
                 foreach (var curMapInfo in _CacheGenericMaps.Where(x => x != this))
                 {
@@ -300,8 +302,7 @@ namespace HMapper
                         foreach (var member in curMapInfo.Members)
                         {
                             var memberInfo = targetMembers.Single(x => x.Name == member.Key.Name);
-                            if (!Members.Any(x => x.Key.Name == memberInfo.Name))
-                                Members.Add(memberInfo, member.Value);
+                            AddOrReplaceMapping(memberInfo, member.Value);
                         }
                         var baseBeforeMaps = curMapInfo.BeforeMaps.ToList();
                         baseBeforeMaps.AddRange(BeforeMaps);
@@ -310,6 +311,12 @@ namespace HMapper
                         baseAfterMaps.AddRange(AfterMaps);
                         AfterMaps = baseAfterMaps;
                     }
+                }
+
+                // Own mappings override base class mappings
+                foreach (var kpOwnMapping in ownMappings)
+                {
+                    AddOrReplaceMapping(kpOwnMapping.Key, kpOwnMapping.Value);
                 }
 
                 var sourceMembers = SourceType.GetMembers(BindingFlags.Instance | BindingFlags.Public).Where(x => (x is FieldInfo || x is PropertyInfo));
@@ -323,6 +330,14 @@ namespace HMapper
                     }
                 }
             }
+        }
+
+        void AddOrReplaceMapping(MemberInfo newMemberinfo, IMapping newMapping)
+        {
+            var kpMapping = Members.SingleOrDefault(x => x.Key.Name == newMemberinfo.Name);
+            if (kpMapping.Value != null)
+                Members.Remove(kpMapping.Key);
+            Members[newMemberinfo] = newMapping;
         }
 
         #endregion

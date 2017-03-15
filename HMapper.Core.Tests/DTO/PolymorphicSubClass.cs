@@ -17,6 +17,7 @@ namespace HMapper.Tests.DTO
             :base(source)
         {
             Name = source.Name;
+            AString = AString.ToUpper();
         }
 
         public override int GetHashCode()
@@ -37,6 +38,6 @@ namespace HMapper.Tests.DTO
     /// <summary>
     /// unmapped sub class
     /// </summary>
-    public class PolymorphicSubSubClass : PolymorphicSubClass
+    public class PolymorphicSubSubClass2 : PolymorphicSubClass
     { }
 }

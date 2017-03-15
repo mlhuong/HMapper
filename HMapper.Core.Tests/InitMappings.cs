@@ -38,7 +38,11 @@ namespace HMapper.Tests
                     .WithMember(x => x.ToBeIngored, api => api.Ignore());
                 initializer.Map<Business.MappedObjectGeneric<TGen1>, DTO.MappedObjectGeneric<TGen1>>();
                 initializer.Map<Business.MultipleGenerics<TGen2, TGen1>, DTO.MultipleGenerics<TGen1, TGen2>>();
-                initializer.Map<Business.PolymorphicSubClass, DTO.PolymorphicSubClass>();
+
+
+                initializer.Map<Business.PolymorphicSubSubClass, DTO.PolymorphicSubSubClass>();
+                initializer.Map<Business.PolymorphicSubClass, DTO.PolymorphicSubClass>()
+     .WithMember(x => x.AString, api => api.LinkTo(x => x.AString.ToUpper()));
                 initializer.Map<Business.PolymorphicBaseClass, DTO.PolymorphicBaseClass>();
                 initializer.Map<Business.IInterfaceForFuncMappingPolymorph, DTO.FuncMappingPolymorphSub>()
                     .WithMember(x => x.FromInterface, api => api.LinkTo(x => x.IntFromInterface));

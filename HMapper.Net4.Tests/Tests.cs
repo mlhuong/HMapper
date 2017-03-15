@@ -142,15 +142,14 @@ namespace HMapper.Tests
         [TestMethod]
         public void TestPolymorphicClass()
         {
-            Run(PolymorphicSubSubClass.Create(1), x => new DTO.PolymorphicSubClass(x));
-            Run<PolymorphicBaseClass, DTO.PolymorphicBaseClass>(PolymorphicSubSubClass.Create(1), x => new DTO.PolymorphicSubClass((PolymorphicSubSubClass)x));
-            Run(PolymorphicSubSubClass.Create(1), x => DTO.PolymorphicBaseClass.GetMostConcrete(x));
+            Run(PolymorphicSubSubClass.Create(1), x => new DTO.PolymorphicSubSubClass(x));
+            Run<PolymorphicBaseClass, DTO.PolymorphicBaseClass>(PolymorphicSubSubClass.Create(1), x => new DTO.PolymorphicSubSubClass((PolymorphicSubSubClass)x));
         }
 
         [TestMethod]
         public void TestPolymorphicInterface()
         {
-            Run<PolymorphicBaseClass, DTO.IPolymorphic>(PolymorphicSubSubClass.Create(1), x => new DTO.PolymorphicSubClass((PolymorphicSubClass)x));
+            Run<PolymorphicBaseClass, DTO.IPolymorphic>(PolymorphicSubSubClass.Create(1), x => new DTO.PolymorphicSubSubClass((PolymorphicSubSubClass)x));
         }
 
         [TestMethod]
@@ -243,7 +242,12 @@ namespace HMapper.Tests
 
             var dto2 = new DTO.PolymorphicBaseClass();
             Mapper.Fill<PolymorphicBaseClass, object>(source, dto2);
-            var manual2 = new DTO.PolymorphicBaseClass(source);
+            var manual2 = new DTO.PolymorphicBaseClass
+            {
+                Id = source.Id,
+                // AString is still filled according to the subclass mapping
+                AString = source.AString.ToUpper()
+            };
             Assert.AreEqual(dto2, manual2);
 
             var dto3 = new DTO.PolymorphicSubSubClass();

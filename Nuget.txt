@@ -1,5 +1,6 @@
 
 0. go to hmapper solution dir in cmd
+1. copy nuget.exe from packages/nuget.commandline.xxx if not there already.
 1. if nuspec file is not created yet, nuget spec => creates the nuspec file 
 2. nuget pack  => creates the package
 3. log in nuget.org, upload the package.

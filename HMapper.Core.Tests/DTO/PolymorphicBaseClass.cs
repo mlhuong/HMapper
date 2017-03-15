@@ -22,8 +22,11 @@ namespace HMapper.Tests.DTO
 
         public static PolymorphicBaseClass GetMostConcrete(Business.PolymorphicBaseClass source)
         {
-            if (source is Business.PolymorphicSubClass)
+            if (source is Business.PolymorphicSubSubClass)
+                return new PolymorphicSubSubClass((Business.PolymorphicSubSubClass)source);
+            else if (source is Business.PolymorphicSubClass)
                 return new PolymorphicSubClass((Business.PolymorphicSubClass)source);
+            
             return new PolymorphicBaseClass(source);
         }
 
