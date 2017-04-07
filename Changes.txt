@@ -1,4 +1,13 @@
-﻿Version 1.1.4
+﻿Version 1.1.6
+==================
+- Fixed: Cache issue can occur in some occasions (double insert)
+- Fixed: Try catch to prevent memory leak
+
+Version 1.1.5
+==================
+- Fixed: null exception when items cache enabled and use of HMapper in a function mapping.
+
+Version 1.1.4
 ==================
 - Fixed: Properly managed mapping overrides when dealing with subs of sub classes.
 

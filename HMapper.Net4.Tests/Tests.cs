@@ -341,6 +341,15 @@ namespace HMapper.Tests
 
         }
 
+        [TestMethod]
+        public void TestClassWithPropUsingMapper()
+        {
+            var source = new ClassWithPropUsingMapper();
+            var myDTO = Mapper.Map<ClassWithPropUsingMapper, DTO.ClassWithPropUsingMapper>(source);
+            var manual = new DTO.ClassWithPropUsingMapper(source);
+            Assert.AreEqual(myDTO, manual);
+        }
+
         private void Run<TSource, TTarget>(TSource source, Func<TSource, TTarget> targetFactory)
         {
             var myDTO = Mapper.Map<TSource, TTarget>(source);

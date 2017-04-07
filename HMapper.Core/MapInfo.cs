@@ -230,8 +230,6 @@ namespace HMapper
                     Dictionary<Type, GenericAssociation> resultDic;
                     if (IsCompatibleTargetType(fillMode, curMapInfo.TargetType.GetTypeInfo(), targetType.GetTypeInfo(), sourceTypeAssociation, out resultDic))
                         results.Add(Tuple.Create(curMapInfo, resultDic));
-                    else
-                        ;
                 }
             }
 

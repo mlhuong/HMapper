@@ -67,6 +67,9 @@
     <Compile Include="..\HMapper.Core\Exceptions\NotMappedException.cs">
       <Link>Exceptions\NotMappedException.cs</Link>
     </Compile>
+    <Compile Include="..\HMapper.Core\Extensions\DictionaryExtension.cs">
+      <Link>Extensions\DictionaryExtension.cs</Link>
+    </Compile>
     <Compile Include="..\HMapper.Core\Extensions\ExpressionExtension.cs">
       <Link>Extensions\ExpressionExtension.cs</Link>
     </Compile>

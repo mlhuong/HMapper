@@ -208,9 +208,20 @@ namespace HMapper
         /// <returns></returns>
         private static Expression AddToCache(Expression source, Expression target)
         {
+            //return Expression.Call(
+            //        Expression.Field(null, Meta.Field(() => MapperCache.Cache)),
+            //        Meta<Dictionary<Tuple<object, Type>, object>>.Method(x => x.Add(default(Tuple<object, Type>), null)),
+            //        Expression.Call(
+            //            null,
+            //            Meta.Method(() => Tuple.Create<object, Type>(null, default(Type))),
+            //            source.Convert(typeof(object)),
+            //            Expression.Constant(target.Type)
+            //        ),
+            //        target.Convert(typeof(object))
+            //        );
             return Expression.Call(
+                    Meta.Method(() => DictionaryExtension.TryAdd<Tuple<object, Type>, object>(null,null,null)),
                     Expression.Field(null, Meta.Field(() => MapperCache.Cache)),
-                    Meta<Dictionary<Tuple<object, Type>, object>>.Method(x => x.Add(default(Tuple<object, Type>), null)),
                     Expression.Call(
                         null,
                         Meta.Method(() => Tuple.Create<object, Type>(null, default(Type))),
@@ -218,7 +229,7 @@ namespace HMapper
                         Expression.Constant(target.Type)
                     ),
                     target.Convert(typeof(object))
-                    );
+                );
         }
     }
 }

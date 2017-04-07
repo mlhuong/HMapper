@@ -77,6 +77,9 @@
     <Compile Include="..\HMapper.Core.Tests\Business\ClassWithNullableTypes.cs">
       <Link>Business\ClassWithNullableTypes.cs</Link>
     </Compile>
+    <Compile Include="..\HMapper.Core.Tests\Business\ClassWithPropUsingMapper.cs">
+      <Link>Business\ClassWithPropUsingMapper.cs</Link>
+    </Compile>
     <Compile Include="..\HMapper.Core.Tests\Business\ClassWithSetOfUnmappedClass.cs">
       <Link>Business\ClassWithSetOfUnmappedClass.cs</Link>
     </Compile>
@@ -163,6 +166,9 @@
     </Compile>
     <Compile Include="..\HMapper.Core.Tests\DTO\ClassWithNullableTypes.cs">
       <Link>DTO\ClassWithNullableTypes.cs</Link>
+    </Compile>
+    <Compile Include="..\HMapper.Core.Tests\DTO\ClassWithPropUsingMapper.cs">
+      <Link>DTO\ClassWithPropUsingMapper.cs</Link>
     </Compile>
     <Compile Include="..\HMapper.Core.Tests\DTO\ClassWithSetOfUnmappedClass.cs">
       <Link>DTO\ClassWithSetOfUnmappedClass.cs</Link>

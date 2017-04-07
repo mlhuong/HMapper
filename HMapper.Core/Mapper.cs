@@ -93,7 +93,10 @@ namespace HMapper
         {
             if (source == null) return;
 
-            MapperCache.Cache = new Dictionary<Tuple<object, Type>, object>();
+            bool CacheInitializedInThisCall = MapperCache.Cache == null;
+
+            if (CacheInitializedInThisCall)
+                MapperCache.Cache = new Dictionary<Tuple<object, Type>, object>();
             Action<TSource, TTarget, IncludeChain> builder;
             switch (mapMode)
             {
@@ -108,18 +111,29 @@ namespace HMapper
                     break;
                 default: throw new NotSupportedException();
             }
-            if (builder == null)
-                throw new NotMappedException(typeof(TSource), typeof(TTarget));
-            builder(source, target, chain);
-            MapperCache.Cache = null;
+
+            try
+            {
+                if (builder == null)
+                    throw new NotMappedException(typeof(TSource), typeof(TTarget));
+                builder.Invoke(source, target, chain);
+            }
+            finally
+            {
+                if (CacheInitializedInThisCall)
+                    MapperCache.Cache = null;
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static TTarget _Map<TSource, TTarget>(TSource source, MapMode mapMode, IncludeChain chain)
         {
-            TTarget result;
+            TTarget result = default(TTarget);
 
-            MapperCache.Cache = new Dictionary<Tuple<object, Type>, object>();
+            bool CacheInitializedInThisCall = MapperCache.Cache == null;
+
+            if (CacheInitializedInThisCall)
+                MapperCache.Cache = new Dictionary<Tuple<object, Type>, object>();
             Func<TSource, IncludeChain, TTarget> builder;
             switch (mapMode)
             {
@@ -133,10 +147,17 @@ namespace HMapper
                     break;
                 default: throw new NotSupportedException();
             }
-            if (builder == null)
-                throw new NotMappedException(typeof(TSource), typeof(TTarget));
-            result = builder(source, chain);
-            MapperCache.Cache = null;
+            try
+            {
+                if (builder == null)
+                    throw new NotMappedException(typeof(TSource), typeof(TTarget));
+                result = builder(source, chain);
+            }
+            finally
+            {
+                if (CacheInitializedInThisCall)
+                    MapperCache.Cache = null;
+            }
             return result;
         }
     }
