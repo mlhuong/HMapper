@@ -82,8 +82,13 @@ namespace HMapper
             UnaryExpression ue = expression as UnaryExpression;
             if (ue != null)
             {
-                if (ue.NodeType == ExpressionType.Convert)
-                    return _CreateFromLambda(ue.Operand, childChain);
+                if (ue.NodeType == ExpressionType.Convert || ue.NodeType == ExpressionType.TypeAs)
+                {
+                    if (ue.Operand is MemberExpression)
+                        return _CreateFromLambda(ue.Operand, childChain);
+                    return childChain;
+                }
+                    
             }
 
             throw new Exception(String.Format("Unsupported linq expression: {0}", expression.ToString()));

@@ -9,13 +9,13 @@ namespace HMapper.Tests
     public class Tests : IClassFixture<MapperFixture>
     {
         [Fact]
-        public void TestVerySimpleObject()
+        public void CoreTestVerySimpleObject()
         {
             Run(VerySimpleClass.Create(), x => new DTO.VerySimpleClass(x));
         }
 
         [Fact]
-        public void TestSimpleObject()
+        public void CoreTestSimpleObject()
         {
             // We have 2 target types mapped to the same source type.
             Run(SimpleClass.Create(5), x => new DTO.SimpleClass(x));
@@ -23,7 +23,7 @@ namespace HMapper.Tests
         }
 
         [Fact]
-        public void TestSimpleObjectWithInclude()
+        public void CoreTestSimpleObjectWithInclude()
         {
             var source = MultipleSets.Create(5);
             var myDTO = Mapper.Map<MultipleSets, DTO.MultipleSets>(source, x => x.SimpleClasses.Select(y => y.IntArray), x => x.IntegerSet);
@@ -38,7 +38,7 @@ namespace HMapper.Tests
         }
 
         [Fact]
-        public void TestSimpleObjectWithNoInclude()
+        public void CoreTestSimpleObjectWithNoInclude()
         {
             var source = MultipleSets.Create(5);
             var myDTO = Mapper.Map<MultipleSets, DTO.MultipleSets>(source, null);
@@ -51,7 +51,7 @@ namespace HMapper.Tests
         }
 
         [Fact]
-        public void TestSimpleObjectWithExclude()
+        public void CoreTestSimpleObjectWithExclude()
         {
             var source = MultipleSets.Create(5);
             var myDTO = Mapper.MapExclude<MultipleSets, DTO.MultipleSets>(source, x => x.SimpleClasses.Select(y => y.IntArray));
@@ -63,7 +63,7 @@ namespace HMapper.Tests
 
 
         [Fact]
-        public void TestSimpleCollection()
+        public void CoreTestSimpleCollection()
         {
             var source = SimpleSet.Create(10);
             source.VerySimpleClasses[0] = null;
@@ -71,19 +71,19 @@ namespace HMapper.Tests
         }
 
         [Fact]
-        public void TestMultipleCollections()
+        public void CoreTestMultipleCollections()
         {
             Run(MultipleSets.Create(3), x => new DTO.MultipleSets(x));
         }
 
         [Fact]
-        public void TestDictionaries()
+        public void CoreTestDictionaries()
         {
             Run(DictionarySet.Create(1), x => new DTO.DictionarySet(x));
         }
 
         [Fact]
-        public void TestDictionariesCircularReferences()
+        public void CoreTestDictionariesCircularReferences()
         {
             var source = DictionarySetCircular.Create();
             var myDTO = Mapper.Map<DictionarySetCircular, DTO.DictionarySetCircular>(source);
@@ -95,7 +95,7 @@ namespace HMapper.Tests
         }
 
         [Fact]
-        public void TestNullableTypes()
+        public void CoreTestNullableTypes()
         {
             var source = ClassWithNullableTypes.Create();
             Run(source, x => new DTO.ClassWithNullableTypes(x));
@@ -107,45 +107,45 @@ namespace HMapper.Tests
         }
 
         [Fact]
-        public void TestSimpleTypes()
+        public void CoreTestSimpleTypes()
         {
             Run(ClassWithSimpleTypes.Create(), x => new DTO.ClassWithSimpleTypes(x));
         }
 
         [Fact]
-        public void TestSimpleGenericOfInt()
+        public void CoreTestSimpleGenericOfInt()
         {
             Run(SimpleGeneric<int>.Create(1, 100), x => new DTO.SimpleGeneric<int>(x));
             Run(SimpleGeneric2<int>.Create(2, 200), x => new DTO.SimpleGeneric2<int>(x));
         }
 
         [Fact]
-        public void TestMappedObjectGeneric()
+        public void CoreTestMappedObjectGeneric()
         {
             Run(MappedObjectGeneric<VerySimpleClass>.Create(1, VerySimpleClass.Create()), x => new DTO.MappedObjectGeneric<DTO.VerySimpleClass>(x));
         }
 
         [Fact]
-        public void TestMultipleGenerics()
+        public void CoreTestMultipleGenerics()
         {
             Run(MultipleGenerics<int, string>.Create(1, 5, "some string"), x => new DTO.MultipleGenerics<string, int>(x));
         }
 
         [Fact]
-        public void TestPolymorphicClass()
+        public void CoreTestPolymorphicClass()
         {
             Run(PolymorphicSubSubClass.Create(1), x => new DTO.PolymorphicSubSubClass(x));
             Run<PolymorphicBaseClass, DTO.PolymorphicBaseClass>(PolymorphicSubSubClass.Create(1), x => new DTO.PolymorphicSubSubClass((PolymorphicSubSubClass)x));
         }
 
         [Fact]
-        public void TestPolymorphicInterface()
+        public void CoreTestPolymorphicInterface()
         {
             Run<PolymorphicBaseClass, DTO.IPolymorphic>(PolymorphicSubSubClass.Create(1), x => new DTO.PolymorphicSubSubClass((PolymorphicSubSubClass)x));
         }
 
         [Fact]
-        public void TestTargetAsInterface()
+        public void CoreTestTargetAsInterface()
         {
             var source = SimpleClass.Create(5);
             var myDTO = Mapper.Map<SimpleClass, DTO.ISimpleClass>(source);
@@ -154,26 +154,26 @@ namespace HMapper.Tests
         }
 
         [Fact]
-        public void TestSetOfPolymorphicClass()
+        public void CoreTestSetOfPolymorphicClass()
         {
             Run(SetOfPolymorphic.Create(1), x => new DTO.SetOfPolymorphic(x));
         }
 
         [Fact]
-        public void TestGenericOfPolymorphicClass()
+        public void CoreTestGenericOfPolymorphicClass()
         {
             Run(MappedObjectGeneric<PolymorphicBaseClass>.Create(1, PolymorphicBaseClass.Create(2)), x => new DTO.MappedObjectGeneric<DTO.PolymorphicBaseClass>(x));
             Run(MappedObjectGeneric<PolymorphicBaseClass>.Create(1, PolymorphicSubSubClass.Create(2)), x => new DTO.MappedObjectGeneric<DTO.PolymorphicBaseClass>(x));
         }
 
         [Fact]
-        public void TestSetOfGenericPolymorph()
+        public void CoreTestSetOfGenericPolymorph()
         {
             Run(SetOfGenericPolymorph.Create(1), x => new DTO.SetOfGenericPolymorph(x));
         }
 
         [Fact]
-        public void TestAutoReferencedClasses()
+        public void CoreTestAutoReferencedClasses()
         {
             var source = AutoReferencedClass.Create(1);
             var myDTO = Mapper.Map<AutoReferencedClass, DTO.AutoReferencedClass>(AutoReferencedClass.Create(1));
@@ -184,7 +184,7 @@ namespace HMapper.Tests
         }
         
         [Fact]
-        public void TestManualMap()
+        public void CoreTestManualMap()
         {
             Run(new ContainerOfManuallyMappedClass.ManuallyMappedClass() { Id = 5, Title = "test" }, x => Tuple.Create(x.Id, x.Title));
 
@@ -192,7 +192,7 @@ namespace HMapper.Tests
         }
 
         [Fact]
-        public void TestFillMap()
+        public void CoreTestFillMap()
         {
             var source = SimpleClass.Create(1);
             var targetDTO = new DTO.SubSimpleClass() { AdditionalInfo = "addInfo" };
@@ -215,7 +215,7 @@ namespace HMapper.Tests
         }
 
         [Fact]
-        public void TestFillMapPolymorph()
+        public void CoreTestFillMapPolymorph()
         {
             var source = PolymorphicSubClass.Create(5);
             var manual = new DTO.PolymorphicSubClass(source);
@@ -250,7 +250,7 @@ namespace HMapper.Tests
 
 
         [Fact]
-        public void TestMapList()
+        public void CoreTestMapList()
         {
             var source = VerySimpleClass.CreateMany(5);
             var MyDTO  = Mapper.Map<IEnumerable<VerySimpleClass>, IEnumerable<DTO.VerySimpleClass>>(source);
@@ -259,7 +259,7 @@ namespace HMapper.Tests
         }
 
         [Fact]
-        public void TestComplexFuncProperty()
+        public void CoreTestComplexFuncProperty()
         {
             var arr = new int[] { 1, 2, 3 };
             var MyDTO = Mapper.Map<int[], DTO.ClassWithComplexFuncMappings>(arr);
@@ -273,13 +273,13 @@ namespace HMapper.Tests
         }
 
         [Fact]
-        public void TestStructEnums()
+        public void CoreTestStructEnums()
         {
             Run(ClassWithStructAndEnum.Create(), x => new DTO.ClassWithStructAndEnum(x));
         }
 
         [Fact]
-        public void TestBeforeAfterMap()
+        public void CoreTestBeforeAfterMap()
         {
             var source = ClassWithBeforeAndAfterMap.Create();
             Run(source, x => new DTO.ClassWithBeforeAndAfterMap()
@@ -292,7 +292,7 @@ namespace HMapper.Tests
         }
 
         [Fact]
-        public void TestBeforeAfterMapWithPolymorph()
+        public void CoreTestBeforeAfterMapWithPolymorph()
         {
             var source = ClassWithBeforeAndAfterMapSub.Create();
             Run(source, x => new DTO.ClassWithBeforeAndAfterMapSub()
@@ -306,13 +306,13 @@ namespace HMapper.Tests
         }
 
         [Fact]
-        public void TestFuncMappingWithPolymorph()
+        public void CoreTestFuncMappingWithPolymorph()
         {
             Run(FuncMappingPolymorphSub.Create(5), x => new DTO.FuncMappingPolymorphSub(x));
         }
 
         [Fact]
-        public void TestInclusions()
+        public void CoreTestInclusions()
         {
             var source = ClassForInclusions.Create();
             var dto = Mapper.Map<ClassForInclusions, DTO.ClassForInclusions>(source, x => x.ADate);
@@ -327,10 +327,24 @@ namespace HMapper.Tests
         }
 
         [Fact]
-        public void TestSetOfUnmapped()
+        public void CoreTestSetOfUnmapped()
         {
             Run(ClassWithSetOfUnmappedClass.Create(), x => new DTO.ClassWithSetOfUnmappedClass(x));
+        }
 
+        [Fact]
+        public void CoreTestException()
+        {
+            string errorMsg = null;
+            try
+            {
+                Run(ClassWithException.Create(), x => new DTO.ClassWithException(x));
+            }
+            catch (Exception ex)
+            {
+                errorMsg = ex.Message;
+            }
+            Assert.True("Mapper exception while assigning [AString] of [ClassWithException]." == errorMsg);
         }
 
         private void Run<TSource, TTarget>(TSource source, Func<TSource, TTarget> targetFactory)

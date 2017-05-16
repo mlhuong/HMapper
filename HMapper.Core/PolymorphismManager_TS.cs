@@ -119,7 +119,7 @@ namespace HMapper
                 ParameterExpression paramInclude = Expression.Parameter(typeof(IncludeChain));
                 Dictionary<Type, GenericAssociation> genericTypeAssociation;
                 var mapInfo = MapInfo.Get(k.Item1, targetType, false, out genericTypeAssociation);
-                if (mapInfo == null) return null;
+                if (mapInfo == null) return (source, include) => default(TTarget);
                 var builderExpr = MapBuilder.CreateBuilderExpression(
                                         mapMode: k.Item2,
                                         mapInfo: mapInfo,
@@ -162,7 +162,7 @@ namespace HMapper
                 ParameterExpression varRealTypeTarget = Expression.Parameter(targetRealType);
                 Dictionary<Type, GenericAssociation> genericTypeAssociation;
                 var mapInfo = MapInfo.Get(k.Item1, targetRealType, true, out genericTypeAssociation);
-                if (mapInfo == null) return null;
+                if (mapInfo == null) return (source, target, include)=> { };
                 var body = Expression.Block(
                     new ParameterExpression[] { varRealTypeTarget },
                     Expression.Assign(varRealTypeTarget, paramTarget.Convert(targetRealType)),

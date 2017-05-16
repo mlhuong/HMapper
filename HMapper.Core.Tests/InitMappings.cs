@@ -79,6 +79,12 @@ namespace HMapper.Tests
                     .EnableItemsCache();
                 initializer.Map<Business.ClassWithPropUsingMapper, DTO.ClassWithPropUsingMapper>()
                     .EnableItemsCache();
+                initializer.Map<Business.ClassWithLazy, DTO.ClassWithLazy>()
+                    .EnableItemsCache()
+                    .WithMember(x => x.SimpleClass, api => api.LinkTo(x => x.LazySimpleClass.Value));
+                initializer.ManualMap<object, DTO.ClassWithAsyncCallToMapper>(x => new DTO.ClassWithAsyncCallToMapper())
+                    .EnableItemsCache();
+                initializer.Map<Business.ClassWithException, DTO.ClassWithException>();
 
             });
 

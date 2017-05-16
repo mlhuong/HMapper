@@ -133,7 +133,18 @@ namespace HMapper
                 Expression GetTargetMemberExpr = PolymorphismManager.GetMostConcreteExpressionCreator(mapMode, entityMember, targetMemberType, includeExpr, usedBuilders);
                 if (GetTargetMemberExpr == null)
                     continue;
-                assignExpr = Expression.Assign(targetMemberExpression, GetTargetMemberExpr);
+                var exceptionParam = Expression.Parameter(typeof(Exception));
+                var exceptionMsg = Expression.Call(Meta.Method(() => String.Format("", new object[0])),
+                    Expression.Constant("Mapper exception while assigning [{0}] of [{1}]."),
+                    Expression.NewArrayInit(typeof(object), Expression.Constant(kpMember.Key.Name), Expression.Constant(mapInfo.TargetType.Name)));
+                var newExpceptionExpr = Expression.New(
+                    typeof(Exception).GetConstructor(new[] { typeof(string), typeof(Exception) }),
+                    exceptionMsg,
+                    exceptionParam);
+                assignExpr = Expression.TryCatch(
+                    Expression.Block(typeof(void), Expression.Assign(targetMemberExpression, GetTargetMemberExpr)),
+                    Expression.Catch(exceptionParam, Expression.Throw(newExpceptionExpr))
+                );
 
                 IncludeChain dummyChain;
 

@@ -1,4 +1,16 @@
-﻿Version 1.1.6
+﻿Version 1.1.9
+==================
+- Added: Indicates the field being assigned when an exception occurs.
+
+Version 1.1.8
+==================
+- Added: support of casts in inclusions.
+
+Version 1.1.7
+==================
+- Fixed: Null exception when a polymorphed target type is not mapped whereas the base type is.
+
+Version 1.1.6
 ==================
 - Fixed: Cache issue can occur in some occasions (double insert)
 - Fixed: Try catch to prevent memory leak

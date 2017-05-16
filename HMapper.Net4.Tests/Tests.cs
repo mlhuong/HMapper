@@ -350,6 +350,34 @@ namespace HMapper.Tests
             Assert.AreEqual(myDTO, manual);
         }
 
+        [TestMethod]
+        public void TestClassWithLazy()
+        {
+            Run(ClassWithLazy.Create(), x => new DTO.ClassWithLazy(x));
+        }
+
+        [TestMethod]
+        public void TestClassWithAsyncCallToMapper()
+        {
+            var DTO = Mapper.Map<object, DTO.ClassWithAsyncCallToMapper>(new object());
+            Assert.IsNotNull(DTO);
+        }
+
+        [TestMethod]
+        public void TestException()
+        {
+            string errorMsg = null;
+            try
+            {
+                Run(ClassWithException.Create(), x => new DTO.ClassWithException(x));
+            }
+            catch (Exception ex)
+            {
+                errorMsg = ex.Message;
+            }
+            Assert.AreEqual("Mapper exception while assigning [AString] of [ClassWithException].", errorMsg);
+        }
+
         private void Run<TSource, TTarget>(TSource source, Func<TSource, TTarget> targetFactory)
         {
             var myDTO = Mapper.Map<TSource, TTarget>(source);
