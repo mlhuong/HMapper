@@ -9,7 +9,12 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-[assembly: InternalsVisibleTo("HMapperTests")]
+[assembly: InternalsVisibleTo("HMapperTests,PublicKey=" +
+                              "0024000004800000940000000602000000240000525341310004000001000100250d6b0b688d0b"
+                              +"f8510e3424c0da75348d0f8c848c9c3028b80cb7ab1031797488e9d414cf162b1356a068e6cd32"
+                              +"43bc141ee5da80b6412b6e146150c76cf9bcbe37e8cbc0c78fae4d8b0d77e306b4be278ed037a5"
+                              +"f017c3d9c4dccc6dee3e0fc2749f783902fcc142adf085eefea797d2d8ea62a9888156f0c29cc6"
+                              +"26e202bc")]
 namespace HMapper
 {
     /// <summary>

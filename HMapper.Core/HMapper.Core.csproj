@@ -11,6 +11,8 @@
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <Version>1.1.9</Version>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>HMap.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
