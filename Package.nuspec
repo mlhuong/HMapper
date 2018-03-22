@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>HMapper</id>
-    <version>1.1.9</version>
+    <version>1.1.10</version>
     <authors>Minh-Luong HUONG</authors>
     <owners>Minh-Luong HUONG</owners>
     <title>HMapper</title>
@@ -10,7 +10,7 @@
     <description>Object to object fast mapper.</description>
     <summary>H-Mapper is a tool that helps developers maitaining their n-tier application by providing a simple and intuitive way to map objects from a layer to another (usually from business/domain layer to presentation layer)</summary>
     <releaseNotes>
-- Added: Indicates the field being assigned when an exception occurs.
+- Add: Sign HMapper assembly 
     </releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Mapper DTO</tags>
